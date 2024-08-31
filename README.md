@@ -1,6 +1,6 @@
 # Number Guessing  Game
 
-##introduction
+## Introduction
 This is to implement A simple Cli Guessing Game using Vanilla Python
 
 ## Usage

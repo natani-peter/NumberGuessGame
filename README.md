@@ -35,7 +35,7 @@ Enter your guess: 35
 Incorrect! The number is less than 35.
 
 Enter your guess: 30
-Congratulations! You guessed the correct number in 3 attempts in the 1 trial at Medium level.
+Congratulations! You guessed the correct number in 3 attempts in the first trial at Medium level.
 
 ```
 

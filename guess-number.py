@@ -8,6 +8,9 @@ Please choose the difficulty level:
 2. Medium (5 chances)
 3. Hard (3 chances)        
 """
+
+print(welcome_message)
+
 levels = {
     1: ("Easy", 10),
     2: ("Medium", 5),
@@ -15,30 +18,34 @@ levels = {
 }
 
 
-def get_random_number() -> int:
-    import random
-    return random.randint(2, 99)
-
-
-def get_guessed_number() -> int:
-    return get_user_number(range(2, 100), "Enter your guess: ")
-
-
-def get_user_number(number_range, prompt) -> int:
-    difficulty = (input(f"{prompt}"))
+def get_user(number_range, prompt) -> int:
+    difficulty = input(f"{prompt}")
     try:
         user_number = int(difficulty)
         if user_number in list(number_range):
             return user_number
         else:
             print("Invalid choice")
-            user_number = get_user_number(number_range, prompt)
+            user_number = get_user(number_range, prompt)
 
     except ValueError:
         print("Enter a valid number")
-        user_number = get_user_number(number_range, prompt)
+        user_number = get_user(number_range, prompt)
 
     return user_number
+
+
+def get_my_number() -> int:
+    import random
+    return random.randint(2, 99)
+
+
+def get_user_number() -> int:
+    return get_user(range(2, 100), "Enter your guess: ")
+
+
+def get_level() -> int:
+    return get_user(range(1, 4), "Enter your choice: ")
 
 
 def setChances(difficulty: int = 2) -> int:
@@ -71,19 +78,19 @@ Let us start the game!"""
 
 
 def final_congratulations(level, trials, attempts=0) -> None | bool:
-    tail = f" in {trials} trials." if trials > 1 else " "
+    tail = f" in {trials} trials" if trials > 1 else " in your first attempt"
     if attempts:
         print(
-            f"Congratulations! You guessed the correct number in {attempts} attempts{tail} at {levels[level][0]} level."
+            f"Congratulations! You guessed the correct number in {attempts} attempts{tail} at {levels[level][0]} level.\n"
         )
         return True
 
-    print(f"Failed! To guess the number in {levels[level][1]} chances, Another Trial?!: ")
+    print(f"Failed! To guess the number in {levels[level][1]} chances, Another Trial !! \n")
 
 
 def play(chances, my_number, level, trials):
     for chance in range(chances):
-        guess_number = get_guessed_number()
+        guess_number = get_user_number()
 
         user_feedback = feedback(guessed_number=guess_number, my_number=my_number)
 
@@ -93,25 +100,22 @@ def play(chances, my_number, level, trials):
     final_congratulations(level, trials=trials)
 
 
-def play_game(level) -> None:
+def play_game() -> None:
+    level = get_level()
     chances = setChances(level)
-    my_number = get_random_number()
+    my_number = get_my_number()
 
-    print(my_number)
     trials = 1
     while True:
         if not play(chances, my_number, level, trials=trials):
             trials += 1
-            if input("Press  any to continue or [N] key to quit")[0].lower() != 'n':
+            if input("Press  any to continue or [N] key to quit: ")[0].lower() != 'n':
                 play(chances, my_number, level, trials=trials)
         break
 
 
 def main():
-    print(welcome_message)
-    level = get_user_number(range(1, 4), "Enter your choice: ")
-    if level:
-        return play_game(level)
+    play_game()
 
 
 if __name__ == "__main__":

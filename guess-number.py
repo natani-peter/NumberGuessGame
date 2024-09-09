@@ -81,7 +81,8 @@ def final_congratulations(level, trials, attempts=0) -> None | bool:
     tail = f" in {trials} trials" if trials > 1 else " in your first attempt"
     if attempts:
         print(
-            f"Congratulations! You guessed the correct number in {attempts} attempts{tail} at {levels[level][0]} level.\n"
+            f"Congratulations! "
+            f"You guessed the correct number in {attempts} attempts{tail} at {levels[level][0]} level.\n"
         )
         return True
 
